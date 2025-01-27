@@ -4,6 +4,8 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args){
         var typesSort = new SelectionSort();
+        var quickSort = new QuickSort();
+
         int[] array = {9, 7, 5, 3, 1, 8, 6};
 
         int[] selectionSortDescending = typesSort.selectionSortDescending(array);
@@ -67,6 +69,18 @@ public class Main {
 
         //System.out.println(Arrays.toString(typesSort.selectionSort(array)));
         int[] recursive = {64, 25, 12, 22, 11};
-        System.out.println(Arrays.toString(typesSort.selectionSortRecursive(recursive, 0)));
+        //System.out.println(Arrays.toString(typesSort.selectionSortRecursive(recursive, 0)));
+
+        int[] arr = {10, 7, 8, 9, 1, 5, 15, 13};  // Exemplo de array desordenado
+        /*System.out.println("Array original: " + Arrays.toString(arr));
+        quickSort.quickSortBasic(arr, 0, arr.length - 1);  // Chamando o Quicksort
+        System.out.println("Array ordenado: " + Arrays.toString(arr));*/
+        /*
+        quickSort.quickSortRandomPivot(arr, 0, array.length - 1);
+        System.out.println(Arrays.toString(arr));*/
+
+        quickSort.quickSortWithComparisons(arr, 0, array.length - 1 );
+        System.out.println(Arrays.toString(arr));
+
     }
 }
