@@ -2,6 +2,47 @@ import java.util.*;
 
 public class QuickSort {
 /*
+*Implementação personalizada:
+Escreva uma versão do Quicksort em PHP e Python onde o pivô seja escolhido como o elemento do meio do array em vez do primeiro.
+
+Comparação de Desempenho:
+Compare o tempo de execução do Quicksort em PHP e Python para arrays de 10.000 números aleatórios. Utilize funções de tempo como microtime(true) em PHP e time.perf_counter() em Python.
+
+Ordenação Decrescente:
+Modifique o Quicksort para ordenar o array em ordem decrescente.
+
+Contagem de Chamadas Recursivas:
+Adapte o Quicksort para contar o número de chamadas recursivas feitas durante a execução. Exiba esse valor ao final da ordenação.
+
+Arrays com Elementos Repetidos:
+Teste o Quicksort com um array que contém muitos elementos repetidos e observe o comportamento do algoritmo.
+
+Ordenação de Strings:
+Modifique o Quicksort para ordenar um array de strings em vez de números.
+
+Ordenação de Dicionários/Associative Arrays:
+Em Python, ordene uma lista de dicionários baseada em um valor específico usando Quicksort. Em PHP, faça o mesmo com arrays associativos.
+
+Verificação de Ordenação:
+Escreva uma função para verificar se um array retornado pelo Quicksort está realmente ordenado.
+
+Quicksort Iterativo:
+Em vez de usar recursão, implemente uma versão iterativa do Quicksort usando uma pilha.
+
+Uso de um Pivô Aleatório:
+Modifique o algoritmo para selecionar um pivô aleatório em cada chamada recursiva. Verifique como isso afeta a eficiência para arrays quase ordenados.
+*
+*
+*
+*
+* Desafios Adicionais
+Escolha de Pivô: Compare o desempenho do Quicksort usando diferentes estratégias de pivô (primeiro elemento, último elemento, elemento do meio, pivô aleatório).
+Dados em Arquivos: Implemente o Quicksort para ordenar os números lidos de um arquivo e gravar o resultado ordenado em outro arquivo.
+Estes exercícios cobrem diversos conceitos importantes e irão aprofundar sua compreensão de Quicksort.
+* */
+
+
+/*
 
 
 5. Quicksort com Ordem Decrescente
