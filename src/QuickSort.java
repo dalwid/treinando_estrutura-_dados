@@ -8,13 +8,13 @@ Escreva uma versão do Quicksort em PHP e Python onde o pivô seja escolhido com
 Comparação de Desempenho:
 Compare o tempo de execução do Quicksort em PHP e Python para arrays de 10.000 números aleatórios. Utilize funções de tempo como microtime(true) em PHP e time.perf_counter() em Python.
 
-Ordenação Decrescente:
+3. Ordenação Decrescente:
 Modifique o Quicksort para ordenar o array em ordem decrescente.
 
-Contagem de Chamadas Recursivas:
+4. Contagem de Chamadas Recursivas:
 Adapte o Quicksort para contar o número de chamadas recursivas feitas durante a execução. Exiba esse valor ao final da ordenação.
 
-Arrays com Elementos Repetidos:
+5. Arrays com Elementos Repetidos:
 Teste o Quicksort com um array que contém muitos elementos repetidos e observe o comportamento do algoritmo.
 
 Ordenação de Strings:
@@ -44,9 +44,6 @@ Estes exercícios cobrem diversos conceitos importantes e irão aprofundar sua c
 
 /*
 
-
-5. Quicksort com Ordem Decrescente
-Modifique o Quicksort para ordenar os elementos em ordem decrescente.
 
 6. Quicksort para Listas com Números Duplicados
 Altere a implementação do Quicksort para lidar de forma eficiente com listas que contêm muitos elementos repetidos.
@@ -176,5 +173,198 @@ private int partitionComparison(int[] array, int low, int hight){
     return i + 1;
 }
 
+/*
+*5. Quicksort com Ordem Decrescente
+*Modifique o Quicksort para ordenar os elementos em ordem decrescente.
+*
+* Exercício 5: Quicksort com Ordem Decrescente
+* */
+public void quickSortDescending(int[] array, int low, int hight){
+    if(low < hight){
+        int pivotIndex = partitionDescending(array, low, hight);
+        quickSortDescending(array, low, pivotIndex - 1);
+        quickSortDescending(array, pivotIndex + 1, hight);
+    }
+}
+private int partitionDescending(int[] array, int low, int hight){
+    int pivot = array[hight];
+    int i = low - 1;
+
+    for (int j = low; j < hight; j++) {
+        if(array[j] >= pivot){ // Note the  >= for descendinding order
+            i++;
+            swap(array, i + 1, hight);
+        }
+    }
+
+    swap(array, i + 1, hight);
+    return i + 1;
+}
+
+// *********************************************************************************************************************
+//                                             Quick Sort Fundamental
+// *********************************************************************************************************************
+
+/*
+*
+*1. Implementação personalizada:
+*Escreva uma versão do Quicksort em PHP e Python onde o pivô seja escolhido como o elemento do meio do array em vez do primeiro.
+*
+*   Escolhendo o pivô como elemento do meio
+**/
+public int[] quickSortPivotMiddle(int[] array){
+    if(array.length < 2){
+        return array;
+    }
+    int pivot     = array[array.length / 2];
+    int[] less    = Arrays.stream(array).filter(x -> x < pivot).toArray();
+    int[] equal   = Arrays.stream(array).filter(x -> x > pivot).toArray();
+    int[] greater = Arrays.stream(array).filter(x -> x > pivot).toArray();
+    return concatenate(quickSortPivotMiddle(less), equal, quickSortPivotMiddle(greater));
+}
+private int[] concatenate(int[] less, int[] equal, int[] greater){
+    int[] result = new int[less.length + equal.length + greater.length];
+    System.arraycopy(less, 0, result, 0, less.length);
+    System.arraycopy(equal, 0, result, less.length, equal.length);
+    System.arraycopy(greater, 0, result, less.length + equal.length, greater.length);
+    return result;
+}
+
+/*
+*
+*2. Comparação de Desempenho:
+*Compare o tempo de execução do Quicksort em PHP e Python para arrays de 10.000 números aleatórios.
+* Utilize funções de tempo como microtime(true) em PHP e time.perf_counter() em Python.
+*
+*   Comparação de desempenho
+* */
+public void quickSortPerformance(int[] array){
+    int[] arr = new Random().ints(10000, 1, 10001).toArray();
+    long startTime = System.nanoTime();
+    this.quickSortPivotMiddle(arr);
+    long endTime = System.nanoTime();
+    System.out.println("Tempo de execuçao: %.4f segundos%n " + (endTime - startTime) / 1e9);
 
 }
+
+/*
+ *
+ *3. Ordenação Decrescente:
+ *Modifique o Quicksort para ordenar o array em ordem decrescente.
+ *
+ * Ordenação decrescente
+ * */
+public int[]  quickSortDesc(int[] array){
+    if(array.length < 2){
+        return array;
+    }
+
+    int pivot = array[0];
+    int[] greater = Arrays.stream(array, 1, array.length).filter(x -> x >= pivot).toArray();
+    int[] less    = Arrays.stream(array, 1, array.length).filter(x -> x < pivot).toArray();
+    return concatenate(quickSortDesc(greater), new int[]{pivot}, quickSortDesc(less));
+}
+
+/*
+*
+* 4. Contagem de Chamadas Recursivas:
+*Adapte o Quicksort para contar o número de chamadas recursivas feitas durante a execução. Exiba esse valor ao final da ordenação.
+*
+* Contagem de chamadas recursivas
+* */
+private int callCount = 0;
+public int getCount(){ return this.callCount;}
+    public void setCount(int count){ this.callCount = count; }
+
+public int[] quickSortCount(int[] array){
+
+    setCount(this.getCount() + 1);
+
+    if(array.length < 2){
+        return array;
+    }
+
+    int pivot = array[0];
+    int[] less    = Arrays.stream(array, 1, array.length).filter(x -> x <= pivot).toArray();
+    int[] greater = Arrays.stream(array, 1, array.length).filter(x -> x > pivot).toArray();
+    return concatenate(quickSortCount(less), new int[]{pivot}, quickSortCount(greater));
+}
+
+/*
+*
+* 5. Arrays com Elementos Repetidos:
+*Teste o Quicksort com um array que contém muitos elementos repetidos e observe o comportamento do algoritmo.
+*
+* Arrays com elementos repetitidos
+* */
+public int[] quickSortRepeat(int[] array){
+
+    if(array.length < 2){
+        return array;
+    }
+
+    int pivot = array[0];
+    int[] less    = Arrays.stream(array, 1, array.length).filter(x -> x <= pivot).toArray();
+    int[] greater = Arrays.stream(array, 1, array.length).filter(x -> x > pivot).toArray();
+    return concatenate(quickSortCount(less), new int[]{pivot}, quickSortCount(greater));
+}
+
+/*
+*
+*9. Quicksort Iterativo:
+*Em vez de usar recursão, implemente uma versão iterativa do Quicksort usando uma pilha.
+*
+* Quicksort interativo
+* */
+public void quickSortInterative(int[] array){
+    Stack<int[]> stack = new Stack<>();
+    stack.push(new int[]{0, array.length - 1});
+    while(!stack.isEmpty()){
+        int[] range = stack.pop();
+        int start = range[0], end = range[1];
+        if (start >= end){
+            continue;
+        }
+        int pivot = array[start];
+        int low = start + 1, hight = end;
+        while (low <= hight){
+            while(low <= hight && array[low] <= pivot) low++;
+            while(low <= hight && array[hight] >= pivot) hight--;
+            if(low < hight){
+                swap(array, low, hight);
+            }
+        }
+
+        swap(array, start, hight);
+        stack.push(new int[]{start, hight - 1});
+        stack.push(new int[]{hight + 1, end});
+
+    }
+}
+
+/*
+*
+*10. Uso de um Pivô Aleatório:
+*Modifique o algoritmo para selecionar um pivô aleatório em cada chamada recursiva.
+* Verifique como isso afeta a eficiência para arrays quase ordenados.
+*
+*  Pivô aleatório
+* */
+public int[] quickSortRandomPivot(int[] array){
+    if(array.length < 2){
+        return array;
+    }
+
+    int pivot     = array[new Random().nextInt(array.length)];
+    int[] less    = Arrays.stream(array).filter(x -> x < pivot).toArray();
+    int[] equal   = Arrays.stream(array).filter(x -> x == pivot).toArray();
+    int[] greater = Arrays.stream(array).filter(x -> x > pivot).toArray();
+
+    return concatenate(quickSortRandomPivot(less), equal, quickSortRandomPivot(greater));
+}
+
+
+}
+
+
+

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args){
@@ -80,7 +81,43 @@ public class Main {
         System.out.println(Arrays.toString(arr));*/
 
         quickSort.quickSortWithComparisons(arr, 0, array.length - 1 );
-        System.out.println(Arrays.toString(arr));
+        //System.out.println(Arrays.toString(arr));
+
+        quickSort.quickSortDescending(range, 1, range.length - 1);
+        //System.out.println(Arrays.toString(range));
+
+        int[] quickArray = {10, 5, 2, 3, 7, 6};
+        //System.out.println("Ordenando: " + Arrays.toString(quickSort.quickSortPivotMiddle(quickArray)));
+
+        //quickSort.quickSortPerformance(quickArray);
+        //System.out.println(Arrays.toString(quickSort.quickSortDesc(quickArray)));
+
+        /*
+        quickSort.quickSortCount(quickArray);
+        System.out.println("Números de chamadas recursivas: " + quickSort.getCount());*/
+        /*
+        int[] repeatedArray = {4, 2, 7, 2, 4, 8, 4, 9};
+        System.out.println("Com elementos repetitidos: " + Arrays.toString(quickSort.quickSortRepeat(repeatedArray)));*/
+        /*
+        String[] words = {"banana", "apple", "orange", "grape", "cherry"};
+        Arrays.sort(words, String::compareTo);
+        System.out.println("Strings ordenadas: " + Arrays.toString(words));*/
+
+        /*
+        Student[] students = {
+                new Student("Alice", 85),
+                new Student("Bob", 75),
+                new Student("Charlie", 95)
+        };
+
+        Arrays.sort(students, Comparator.comparingInt(s -> s.score));
+        Arrays.stream(students).forEach(s -> System.out.println(s.name + " - " + s.score));*/
+        /*
+        quickSort.quickSortInterative(quickArray);
+        System.out.println(Arrays.toString(quickArray));*/
+
+        quickSort.quickSortRandomPivot(quickArray);
+        System.out.println(Arrays.toString(quickArray));
 
     }
 }
