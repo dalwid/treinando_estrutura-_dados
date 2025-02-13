@@ -116,8 +116,17 @@ public class Main {
         quickSort.quickSortInterative(quickArray);
         System.out.println(Arrays.toString(quickArray));*/
 
+        /*
         quickSort.quickSortRandomPivot(quickArray);
-        System.out.println(Arrays.toString(quickArray));
+        System.out.println(Arrays.toString(quickArray));*/
+
+        /*
+        int[] arranjo = {3, 6, 8, 10, 1, 2, 1, 3, 5, 7, 9, 8, 10, 2, 4, 6};
+        System.out.println("Array original: " + Arrays.toString(arranjo));
+        quickSort.sortToQuickSort(arranjo);
+        System.out.println("Array ordenado: " + Arrays.toString(arranjo));*/
+
+        quickSort.runTestTime();
 
     }
 }

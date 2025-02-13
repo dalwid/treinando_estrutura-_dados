@@ -44,10 +44,6 @@ Estes exercícios cobrem diversos conceitos importantes e irão aprofundar sua c
 
 /*
 
-
-6. Quicksort para Listas com Números Duplicados
-Altere a implementação do Quicksort para lidar de forma eficiente com listas que contêm muitos elementos repetidos.
-
 7. Quicksort com Partição Lomuto e Hoare
 Implemente o Quicksort duas vezes usando as estratégias de partição de Lomuto e de Hoare. Compare o desempenho.
 
@@ -200,6 +196,52 @@ private int partitionDescending(int[] array, int low, int hight){
     swap(array, i + 1, hight);
     return i + 1;
 }
+
+
+/*
+*
+* 6. Quicksort para Listas com Números Duplicados
+*Altere a implementação do Quicksort para lidar de forma eficiente com listas que contêm muitos elementos repetidos.
+*
+* */
+public void sortToQuickSort(int[] array){
+    if(array == null || array.length == 0){
+        return;
+    }
+    threeWayQuickSort(array, 0, array.length - 1);
+}
+
+private void threeWayQuickSort(int[] array, int low, int hight){
+    if(low >= hight){
+        return;
+    }
+
+    int[] pivotRange = myPartition(array, low, hight);
+    threeWayQuickSort(array, low, pivotRange[0] - 1);
+    threeWayQuickSort(array, pivotRange[1] + 1, hight);
+}
+
+private int[] myPartition(int[] array, int low, int hight){
+    int pivot = array[low];
+    int lt    = low;
+    int gt    = hight;
+    int i     = low + 1;
+
+    while (i <= gt){
+        if(array[i] < pivot){
+            swap(array, lt++, i++);
+        }
+        else if(array[i] > pivot){
+            swap(array, i, gt--);
+        }
+        else{
+            i++;
+        }
+    }
+
+    return new int[]{lt, gt};
+}
+
 
 // *********************************************************************************************************************
 //                                             Quick Sort Fundamental
@@ -363,6 +405,164 @@ public int[] quickSortRandomPivot(int[] array){
     return concatenate(quickSortRandomPivot(less), equal, quickSortRandomPivot(greater));
 }
 
+/*
+O Quicksort é um algoritmo de ordenação eficiente que utiliza a estratégia de "dividir para conquistar".
+Ele funciona selecionando um elemento chamado pivô e particionando a array de forma que os elementos menores que o
+pivô fiquem à esquerda e os maiores à direita.
+Em seguida, o algoritmo é aplicado recursivamente às sub-arrays à esquerda e à direita do pivô.
+
+Existem diferentes métodos para realizar a partição,
+sendo os mais comuns o Lomuto e o Hoare. Vou explicar ambos e mostrar como implementá-los.
+
+
+1. Partição de Lomuto
+
+A partição de Lomuto é mais simples de entender,
+mas geralmente menos eficiente que a de Hoare. O pivô é escolhido como o último elemento da array.
+
+Passos:
+
+   1. Escolha o último elemento como pivô.
+
+   2. Percorra a array com um índice i que mantém a posição onde os elementos menores que o pivô serão colocados.
+
+   3. Para cada elemento, se ele for menor que o pivô, mova-o para a posição i e incremente i.
+
+   4. No final, coloque o pivô na posição correta (índice i).
+*/
+public int lomutoPartition(int[] array, int low, int high){
+    int pivot = array[high]; // Escolhe o último elemento como pivô
+    int i = low - 1; // Índice do menor elemento
+
+    for (int j = low; j < high; j++) {
+        if (array[j] < pivot) {
+            i++;
+            // Troca arr[i] e arr[j]
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+
+    // Coloca o pivô na posição correta
+    int temp     = array[i + 1];
+    array[i + 1] = array[high];
+    array[high]  = temp;
+
+    return i + 1; // Retorna a posição do pivô
+}
+public void quickSortLomuto(int[] array, int low, int high){
+    if (low < high) {
+        int pi = lomutoPartition(array, low, high); // Índice do pivô
+        quickSortLomuto(array, low, pi - 1); // Ordena a sub-array à esquerda
+        quickSortLomuto(array, pi + 1, high); // Ordena a sub-array à direita
+    }
+}
+
+/*
+2. Partição de Hoare
+
+A partição de Hoare é mais eficiente que a de Lomuto, pois realiza menos trocas.
+O pivô é escolhido como o primeiro elemento da array.
+
+Passos:
+
+   1. Escolha o primeiro elemento como pivô.
+
+   2. Use dois índices, i e j, que começam nas extremidades da array e se movem em direção ao centro.
+
+   3. Enquanto i encontra elementos menores que o pivô, ele avança.
+
+   4. Enquanto j encontra elementos maiores que o pivô, ele retrocede.
+
+   5. Quando i e j se cruzam, a partição está concluída.
+*/
+public int hoarePartition(int[] array, int low, int high){
+    int pivot = array[low]; // Escolhe o primeiro elemento como pivô
+    int i = low - 1;
+    int j = high + 1;
+
+    while (true) {
+        // Avança i enquanto arr[i] < pivô
+        do {
+            i++;
+        } while (array[i] < pivot);
+
+        // Retrocede j enquanto arr[j] > pivô
+        do {
+            j--;
+        } while (array[j] > pivot);
+
+        // Se i e j se cruzarem, retorna j
+        if (i >= j) {
+            return j;
+        }
+
+        // Troca arr[i] e arr[j]
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+// Função principal do Quicksort com Hoare
+public void quickSortHoare(int[] array, int low, int high){
+    if (low < high) {
+        int pi = hoarePartition(array, low, high); // Índice do pivô
+        quickSortHoare(array, low, pi); // Ordena a sub-array à esquerda
+        quickSortHoare(array, pi + 1, high); // Ordena a sub-array à direita
+    }
+}
+
+// Gera um array de tamnho 'size' com números aleatórios
+public int[] generateRandomArray(int size){
+    Random random = new Random();
+    int[] array = new int[size];
+    for (int i = 0; i < size; i++) {
+        array[i] = random.nextInt(1000000); // Números entre 0 e 999.999
+    }
+
+    return array;
+}
+
+// Mede o tempo de execução de uma função de ordenação
+public long measureTime(Runnable sortingFunction){
+    long startTime = System.nanoTime();
+    sortingFunction.run();
+    long endTime = System.nanoTime();
+    return endTime - startTime;
+}
+
+public void runTestTime(){
+    int[] sizes = {10000, 100000, 1000000}; // Tamanhos dos arrays
+    int iterations = 5; // Número de interações para casa teste
+
+    for (int size : sizes){
+        System.out.println("Testando com array de tamanho: "+size);
+        long totalTimeLomuto = 0;
+        long totalTimeHoare  = 0;
+
+        for (int i = 0; i < iterations; i++) {
+            int[] array = generateRandomArray(size);
+
+            // Testa lomuto
+            int[] arrayLomuto = array.clone(); // Clona o array não agetar o original
+            totalTimeLomuto  += measureTime(()-> quickSortLomuto(arrayLomuto, 0, arrayLomuto.length - 1));
+
+            // Testa Hoare
+            int[] arrayHoare = array.clone();// Clona o array apra não afetar o original
+            totalTimeHoare  += measureTime(()-> quickSortHoare(arrayHoare, 0, arrayHoare.length - 1));
+        }
+
+        // Calcula a média de tempo para casa algoritmo
+        long avgTimeLomuto = totalTimeLomuto / iterations;
+        long avgTimeHoare  = totalTimeHoare / iterations;
+
+        System.out.println("Tempo médio (Lomuto): " + avgTimeLomuto + " ns");
+        System.out.println("Tempo médio (Hoare): "  + avgTimeHoare);
+        System.out.println();
+    }
+}
 
 }
 
