@@ -1,11 +1,11 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args){
         var typesSort = new SelectionSort();
         var quickSort = new QuickSort();
+        var hashTable = new HashTable();
+        var hashTableII = new HashTableII();
 
         int[] array = {9, 7, 5, 3, 1, 8, 6};
 
@@ -126,7 +126,109 @@ public class Main {
         quickSort.sortToQuickSort(arranjo);
         System.out.println("Array ordenado: " + Arrays.toString(arranjo));*/
 
-        quickSort.runTestTime();
+        //quickSort.runTestTime();
+
+
+       /* int[] lista = {1, 2, 2, 3, 3, 3, 4};
+       System.out.println(hashTable.contarFrequencia(lista));// Saída: {1=1, 2=2, 3=3, 4=1}
+
+        int[] resultado = hashTable.removerDuplicatas(lista);
+        for (int num : resultado){
+            System.out.println(num + " "); // Saída 1 2 3 4
+        }
+
+        int[] lista1 = {1, 2, 3, 4};
+        int[] lista2 = {3, 4, 5, 6};
+        int[] resultado = hashTable.intersecaoListas(lista1, lista2);
+        for (int num : resultado) {
+            System.out.print(num + " "); // Saída: 3 4
+        }
+
+        String s1 = "listen";
+        String s2 = "silent";
+        System.out.println(hashTable.saoAnagramas(s1, s2));*/
+
+        //int[] lista = {1, 2, 3, 2, 1, 4};
+        //System.out.println(hashTable.primeiroElementoUnico(lista));
+
+        /*
+        int[] lista = {2, 7, 11, 15};
+        int alvo = 9;
+        int[] resultado = hashTable.somaDoisNumeros(lista, alvo);
+        System.out.println(resultado[0]+", "+ resultado[1]); // Sáida 2, 7
+
+        String[] fruit = {"apple", "banan", "cherry", "avocado"};
+        System.out.println(hashTable.agruparPorChave(fruit)); // Saída: {a=[apple, avocado], b=[banana], c=[cherry]}
+        */
+
+        /*
+        String s1 = "abc";
+        String s2 = "bca";
+        System.out.println(hashTable.saoPermutacoes(s1, s2));
+
+        String texto = "hello world hello";
+        System.out.println(hashTable.contarPalavras(texto));// Saída: {hello=2, world=1}
+
+        int[] lista = {1, 3, 2, 3, 4, 3, 2, 2, 2};
+        System.out.println(hashTable.elementoMaisFrequente(lista)); // Saída: 2
+
+         */
+
+        /*
+        //1. Criar e adicionar elementos em uma tabela hash
+        Map<String, Object> tabelaHash = new HashMap<>();
+        tabelaHash.put("nome", "Alice");
+        tabelaHash.put("idade", 25);
+        tabelaHash.put("profissao", "Engenheira");
+        tabelaHash.put("cidade", "São Paulo");
+        tabelaHash.put("país", "Brasil");
+        System.out.println(tabelaHash);
+
+        //2. Buscar um elemento na tabela hash
+        System.out.println(tabelaHash.get("cidade")); // São Paulo
+
+        // 3. Remover um elemento da tabela hash
+        tabelaHash.remove("profissao");
+        System.out.println(tabelaHash.getOrDefault("profissao", "Não encontrado"));
+
+        // 4. Verificar se uma chave existe
+        System.out.println(tabelaHash.containsKey("nome")); // true
+        System.out.println(tabelaHash.containsKey("telefone")); // false
+
+        // 5. Iterar sobre os elementos da tabela hash
+        for(Map.Entry<String, Object> entry : tabelaHash.entrySet()){
+            System.out.println(entry.getKey()+": "+entry.getValue());
+        }
+
+        // 6. Contar quantos elementos há na tabela hash
+        System.out.println("Tamanho: "+ tabelaHash.size());
+
+        // 7. Criar uma função que converte um array de pares chave-valor em uma tabela hash
+        String[][] dados = {{"nome", "Carlos"}, {"idade", "30"}, {"cidade", "Rio"}};
+        Map<String, Object> novaHash = hashTableII.arrayParaHash(dados);
+        System.out.println(novaHash);
+
+        // 8. Criar uma função que converte uma tabela hash em um objeto (simulado via classe)
+        Pepple p = new Pepple();
+        p.nome   = (String) tabelaHash.get("nome");
+        p.idade  = (int) tabelaHash.get("idade");
+        p.cidade = (String) tabelaHash.get("cidade");
+
+        //System.out.println(p.nome+" - "+p.idade+" - "+p.cidade);
+
+        // 9. Criar um cache simples com tabela hash
+        Map<String, Integer> cache = new HashMap<>();
+        int resultado1 = hashTableII.calcular("soma", cache, ()-> 10 + 20);
+        int resultado2 = hashTableII.calcular("soma", cache, ()-> 50 + 50);
+
+        System.out.println(resultado1);
+        System.out.println(resultado2);
+
+        // 10. Criar um sistema de contagem de palavras usando tabela hash
+        String texto = "O gato preto encontrou outro gato preto no telhado.";
+        System.out.println(hashTableII.contarPalavras(texto));
+
+         */
 
     }
 }
