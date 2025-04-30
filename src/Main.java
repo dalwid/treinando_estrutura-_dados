@@ -6,7 +6,8 @@ public class Main {
         var quickSort = new QuickSort();
         var hashTable = new HashTable();
         var hashTableII = new HashTableII();
-
+        var fbs = new Fbs();
+        /*
         int[] array = {9, 7, 5, 3, 1, 8, 6};
 
         int[] selectionSortDescending = typesSort.selectionSortDescending(array);
@@ -24,7 +25,7 @@ public class Main {
                 new Pessoa("David",20)
         };
 
-        pessoas = typesSort.selectionSortObjects(pessoas);
+        pessoas = typesSort.selectionSortObjects(pessoas);*/
 
         // Exibindo o resultado ordenado
         /*
@@ -33,6 +34,7 @@ public class Main {
             System.out.println(pessoa.getNome() + " - " + pessoa.getIdade() + " anos");
         }*/
 
+        /*
         int[] numeros = {30, 25, 35, 20};
         //System.out.println(typesSort.selectionSortCountComparisons(numeros));
         //System.out.println(typesSort.selectionSortCountSwaps(numeros));
@@ -53,26 +55,26 @@ public class Main {
             System.out.println(Arrays.toString(linhas));
         }*/
         // Sugestão para o próximo array 29, 10, 14, 37, 13, 5
-        int[] range = {5, 2, 9, 1, 5, 6};
+        /*int[] range = {5, 2, 9, 1, 5, 6};
         int start = 1;
         int end = 4;
-        int[] result = typesSort.selectionSortRange(array, start, end);
+        int[] result = typesSort.selectionSortRange(array, start, end);*/
 //        System.out.println("Array parcialmente ordenado:");
 //        for (int num : result) {
 //            System.out.print(num + " ");
 //        }
 
-        int[] stepsBySteps = {29, 10, 14, 37, 13, 5};
+        //int[] stepsBySteps = {29, 10, 14, 37, 13, 5};
         //int[] animated = typesSort.selectionSortAnimated(stepsBySteps);
 //        for (int steps : animated){
 //            System.out.print(Arrays.toString(animated));
 //        }
 
         //System.out.println(Arrays.toString(typesSort.selectionSort(array)));
-        int[] recursive = {64, 25, 12, 22, 11};
+        //int[] recursive = {64, 25, 12, 22, 11};
         //System.out.println(Arrays.toString(typesSort.selectionSortRecursive(recursive, 0)));
 
-        int[] arr = {10, 7, 8, 9, 1, 5, 15, 13};  // Exemplo de array desordenado
+        //int[] arr = {10, 7, 8, 9, 1, 5, 15, 13};  // Exemplo de array desordenado
         /*System.out.println("Array original: " + Arrays.toString(arr));
         quickSort.quickSortBasic(arr, 0, arr.length - 1);  // Chamando o Quicksort
         System.out.println("Array ordenado: " + Arrays.toString(arr));*/
@@ -80,13 +82,13 @@ public class Main {
         quickSort.quickSortRandomPivot(arr, 0, array.length - 1);
         System.out.println(Arrays.toString(arr));*/
 
-        quickSort.quickSortWithComparisons(arr, 0, array.length - 1 );
+        //quickSort.quickSortWithComparisons(arr, 0, array.length - 1 );
         //System.out.println(Arrays.toString(arr));
 
-        quickSort.quickSortDescending(range, 1, range.length - 1);
+        //quickSort.quickSortDescending(range, 1, range.length - 1);
         //System.out.println(Arrays.toString(range));
 
-        int[] quickArray = {10, 5, 2, 3, 7, 6};
+        //int[] quickArray = {10, 5, 2, 3, 7, 6};
         //System.out.println("Ordenando: " + Arrays.toString(quickSort.quickSortPivotMiddle(quickArray)));
 
         //quickSort.quickSortPerformance(quickArray);
@@ -229,6 +231,95 @@ public class Main {
         System.out.println(hashTableII.contarPalavras(texto));
 
          */
+
+    /*
+        char[][] grade = {
+                {'.', '.', '#'},
+                {'#', '.', '#'},
+                {'.', '.', '.'}
+        };
+        //System.out.println(fbs.menorCaminho(grade));
+
+        int[][] matriz = {
+                {1, 1, 0, 0},
+                {0, 1, 0, 0},
+                {1, 0, 1, 1},
+                {0, 0, 1, 0}
+        };
+        //System.out.println("Total de ilhas: "+fbs.contarIlhas(matriz));
+
+        Map<String, List<String>> grafo = new HashMap<>();
+        grafo.put("João",  Arrays.asList("maria", "Lucas"));
+        grafo.put("Maria", Arrays.asList("Joao", "Paulo"));
+        grafo.put("Lucas", Arrays.asList("Joao", "Ana"));
+        grafo.put("Paulo", Arrays.asList("Maria"));
+        grafo.put("Ana",   Arrays.asList("Lucas", "Rafa"));
+        grafo.put("Rafa",  Arrays.asList("Ana"));
+
+        List<String> amigos = fbs.amigosnivel2(grafo, "João");
+        //System.out.println("Amigos de nível 2 de João: "+amigos);
+
+        int[][] labirinto = {
+                {0, 1, 0, 0, 0},
+                {0, 1, 0, 1, 0},
+                {0, 0, 0, 1, 0},
+                {0, 1, 1, 1, 0},
+                {0, 0, 0, 0, 0}
+        };
+
+        int passos = fbs.menorDistancia(labirinto, 0, 0, 4, 4);
+        System.out.println("Menor distância: " + passos);
+
+        Map<Integer, List<Integer>> grafo = new HashMap<>();
+        grafo.put(1, Arrays.asList(2, 3));
+        grafo.put(2, Arrays.asList(1, 4));
+        grafo.put(3, Arrays.asList(1));
+        grafo.put(4, Arrays.asList(2, 5));
+        grafo.put(5, Arrays.asList(4));
+
+        int idInicial = 1;
+        int minutos = fbs.tempoParaEspalhar(grafo, idInicial);
+        //System.out.println("Tempo para espalhar a notícia: " + minutos + " minuto(s)");
+
+
+        String inicio = "hit";
+        String fim = "cog";
+        List<String> dicionario = Arrays.asList("hot", "dot", "dog", "lot", "log", "cog");
+
+        int passos = fbs.ladderLength(inicio, fim, dicionario);
+        //System.out.println("Menor número de passos: " + passos);
+
+        int x = 3;
+        int y = 11;
+
+        int resultado = fbs.transformarNumero(x, y);
+        System.out.println("Número mínimo de operações: " + resultado);
+
+        int[][] cidade = {
+                {0, 1, 0},
+                {0, 0, 0},
+                {1, 0, 0}
+        };
+        int resultado = fbs.minutosParaInfeccaoTotal(cidade);
+        System.out.println("Minutos para infectar todos os humanos: " + resultado);
+
+        int n = 8; // Tabuleiro 8x8 padrão
+        int[] inicio = {0, 0}; // Posição inicial
+        int[] fim = {7, 7}; // Posição final
+
+        int resultado = fbs.minMovimentos(n, inicio, fim);
+        System.out.println("Movimentos mínimos do cavalo: "+resultado);*/
+
+        // Exemplo de grafo bipartido
+        List<List<Integer>> grafo = Arrays.asList(
+                Arrays.asList(1, 3),
+                Arrays.asList(0, 2),
+                Arrays.asList(1, 3),
+                Arrays.asList(0, 2)
+        );
+
+        boolean resultado = fbs.ehBipartido(grafo);
+        System.out.println("O grafo é bipartido? " + resultado);
 
     }
 }
