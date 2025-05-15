@@ -320,6 +320,5 @@ public class Main {
 
         boolean resultado = fbs.ehBipartido(grafo);
         System.out.println("O grafo é bipartido? " + resultado);
-
     }
 }
