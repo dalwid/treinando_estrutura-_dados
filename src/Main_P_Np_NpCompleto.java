@@ -1,12 +1,9 @@
-import n_np_npcompleto.Atividade;
 import n_np_npcompleto.EstrategiaGulosa;
 import n_np_npcompleto.Item;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class Main_N_Np_NpCompleto {
+public class Main_P_Np_NpCompleto {
     public static void main(String[] args) {
         // Define o valor do troco.
         double valorDoTroco = 3.75;
@@ -49,7 +46,7 @@ public class Main_N_Np_NpCompleto {
         //System.out.println("\nO valor total máximo que pode ser obtido é: " + valorMaximo);
 
         // Cria a lista de atividades com seus horários de início e término.
-        List<Atividade> atividades = new ArrayList<>();
+        /*List<Atividade> atividades = new ArrayList<>();
         atividades.add(new Atividade("A1", 10, 11)); // termina cedo
         atividades.add(new Atividade("A2", 9, 12));
         atividades.add(new Atividade("A3", 11, 13)); // pode ser agendada logo depois de A1
@@ -66,7 +63,40 @@ public class Main_N_Np_NpCompleto {
         System.out.println("O cronograma ideal de atividades é:");
         for (Atividade atividade : cronograma) {
             System.out.println(atividade);
-        }
+        }*/
+
+        /*List<AtividadeComPrazo> atividades = new ArrayList<>();
+        atividades.add(new AtividadeComPrazo("a1", 50, 2));
+        atividades.add(new AtividadeComPrazo("a2", 40, 1));
+        atividades.add(new AtividadeComPrazo("a3", 30, 2));
+        atividades.add(new AtividadeComPrazo("a4", 20, 3));
+        atividades.add(new AtividadeComPrazo("a5", 10, 1));
+
+        var solver = new EstrategiaGulosa();
+        int lucroMaximo = solver.problemaAtividadePrazo(atividades);
+
+        System.out.println("\nLucro máximo obtido: " + lucroMaximo);*/
+
+        // Define o universo a ser coberto
+        Set<String> universo = new HashSet<>();
+        universo.add("A"); universo.add("B"); universo.add("C");
+        universo.add("D"); universo.add("E"); universo.add("F");
+
+        // Define os subconjuntos disponíveis
+        List<Set<String>> subconjuntos = new ArrayList<>();
+        subconjuntos.add(new HashSet<>(List.of("A", "C", "D")));
+        subconjuntos.add(new HashSet<>(List.of("B", "E")));
+        subconjuntos.add(new HashSet<>(List.of("A", "F")));
+        subconjuntos.add(new HashSet<>(List.of("C", "E")));
+
+        EstrategiaGulosa solver = new EstrategiaGulosa();
+        List<Set<String>> solucao = solver.coberturaDeConjuntosGuloso(universo, subconjuntos);
+
+        System.out.println("Universo a ser coberto: " + universo);
+        System.out.println("Subconjuntos disponíveis: " + subconjuntos);
+        System.out.println("\nSolução (cobertura gulosa):");
+        solucao.forEach(System.out::println);
+        System.out.println("Número de conjuntos na solução: " + solucao.size());;
 
     }
 }
