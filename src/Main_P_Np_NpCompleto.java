@@ -1,5 +1,7 @@
+import n_np_npcompleto.Aresta;
 import n_np_npcompleto.EstrategiaGulosa;
 import n_np_npcompleto.Item;
+import n_np_npcompleto.Solucao;
 
 import java.util.*;
 
@@ -89,14 +91,41 @@ public class Main_P_Np_NpCompleto {
         subconjuntos.add(new HashSet<>(List.of("A", "F")));
         subconjuntos.add(new HashSet<>(List.of("C", "E")));
 
-        EstrategiaGulosa solver = new EstrategiaGulosa();
-        List<Set<String>> solucao = solver.coberturaDeConjuntosGuloso(universo, subconjuntos);
-
+        //EstrategiaGulosa solver = new EstrategiaGulosa();
+       // List<Set<String>> solucao = solver.coberturaDeConjuntosGuloso(universo, subconjuntos);
+/*
         System.out.println("Universo a ser coberto: " + universo);
         System.out.println("Subconjuntos disponíveis: " + subconjuntos);
         System.out.println("\nSolução (cobertura gulosa):");
         solucao.forEach(System.out::println);
-        System.out.println("Número de conjuntos na solução: " + solucao.size());;
+        System.out.println("Número de conjuntos na solução: " + solucao.size());*/
+
+        // Grafo com arestas (1,2), (1,3), (2,3), (2,4), (3,4)
+        List<Aresta> arestas = List.of(
+                new Aresta(1, 2),
+                new Aresta(1, 3),
+                new Aresta(2, 3),
+                new Aresta(2, 4),
+                new Aresta(3, 4)
+        );
+
+        EstrategiaGulosa solverII = new EstrategiaGulosa();
+        List<Integer> solucaoVertices = solverII.coberturaDeVerticesGuloso(arestas);
+
+        //System.out.println("Arestas do grafo: " + arestas);
+        //System.out.println("\nSolução (cobertura de vértices gulosa): " + solucaoVertices);
+
+        // Cidades: 0, 1, 2, 3
+        int[][] distancias = {
+                {0,10,15,20},
+                {10,0,35,25},
+                {15,35,0,30},
+                {20,25,30,0}
+        };
+
+        Solucao solucao = EstrategiaGulosa.caixeiroViajanteGuloso(distancias, 0);
+        System.out.println("Caminho guloso: "+ solucao.caminho());
+        System.out.println("Custo total: " + solucao.custoTotal());
 
     }
 }

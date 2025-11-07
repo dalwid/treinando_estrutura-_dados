@@ -171,6 +171,101 @@ public class EstrategiaGulosa {
 
         return coberturaFinal;
     }
+
+    public List<Integer> coberturaDeVerticesGuloso(List<Aresta> arestas){
+        Set<Aresta> arestasNaoCobertas = new HashSet<>(arestas);
+        List<Integer> coberturaDeVertices = new ArrayList<>();
+
+        // Cria a representação do grafo: um mapa de vértices para o conjunto de arestas adjacentes
+        Map<Integer, Set<Aresta>> verticesEarestas = new HashMap<>();
+        for (Aresta aresta : arestas) {
+            // Acesso aos vértices da aresta
+            int u = aresta.getU();
+            int v = aresta.getV();
+
+            verticesEarestas.computeIfAbsent(u, k -> new HashSet<>()).add(aresta);
+            verticesEarestas.computeIfAbsent(v, k -> new HashSet<>()).add(aresta);
+        }
+
+        // Loop principal para encontrar a cobertura
+        while (!arestasNaoCobertas.isEmpty()) {
+            Integer melhorVertice = null;
+            int maiorCobertura = 0;
+
+            // Itera sobre todos os vértices para encontrar o que cobre o maior número de arestas restantes
+            for (Map.Entry<Integer, Set<Aresta>> entry : verticesEarestas.entrySet()) {
+                int vertice = entry.getKey();
+                Set<Aresta> arestasDoVertice = entry.getValue();
+
+                Set<Aresta> intersecao = new HashSet<>(arestasDoVertice);
+                intersecao.retainAll(arestasNaoCobertas);
+
+                if (intersecao.size() > maiorCobertura) {
+                    maiorCobertura = intersecao.size();
+                    melhorVertice = vertice;
+                }
+            }
+
+            if (melhorVertice == null) {
+                // Caso não haja mais vértices que cubram arestas restantes
+                break;
+            }
+
+            // Adiciona o melhor vértice à solução e atualiza as arestas não cobertas
+            coberturaDeVertices.add(melhorVertice);
+            arestasNaoCobertas.removeAll(verticesEarestas.get(melhorVertice));
+        }
+
+        return coberturaDeVertices;
+    }
+
+    public static Solucao caixeiroViajanteGuloso(int[][] matrizDistancias, int cidadeInicial){
+        int numCidades = matrizDistancias.length;
+        boolean[] cidadesVisitadas = new boolean[numCidades];
+        List<Integer> caminhoFinal = new ArrayList<>();
+        int custoTotal  = 0;
+        int cidadeAtual = cidadeInicial;
+
+        cidadesVisitadas[cidadeInicial] = true;
+        caminhoFinal.add(cidadeInicial);
+
+        while (caminhoFinal.size() < numCidades){
+            int proximaCidade  = -1;
+            int menorDistancia = Integer.MAX_VALUE;
+
+            // Busca a cidade não visitada mais próxima
+            for (int cidadeCandidata = 0; cidadeCandidata  < numCidades; cidadeCandidata++) {
+                if (!cidadesVisitadas[cidadeCandidata]){
+                    int distancia = matrizDistancias[cidadeAtual][cidadeCandidata];
+
+                    if (distancia < menorDistancia){
+                        menorDistancia = distancia;
+                        proximaCidade  = cidadeCandidata;
+                    }
+                }
+            }
+
+            // Atualiza o estado
+            if(proximaCidade != -1){
+                cidadesVisitadas[proximaCidade] = true;
+                caminhoFinal.add(proximaCidade);
+                custoTotal += menorDistancia;
+                cidadeAtual = proximaCidade;
+            }
+            else{
+                break;
+            }
+        }
+
+        // Fechar o ciclo (retornar à cidade inicial)
+        int distanciaVolta = matrizDistancias[cidadeAtual][cidadeInicial];
+        custoTotal += distanciaVolta;
+        caminhoFinal.add(cidadeInicial);
+
+        return new Solucao(caminhoFinal, custoTotal);
+    }
+
+
 }
 /*
 *
